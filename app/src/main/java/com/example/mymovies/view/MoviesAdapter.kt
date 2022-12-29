@@ -1,12 +1,13 @@
-package com.example.mymovies
+package com.example.mymovies.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.ViewMovieItemBinding
+import com.example.mymovies.model.Movie
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
+    var movies: List<Movie>,
     private val onClickListener: (Movie) -> Unit,
 ) :
     RecyclerView.Adapter<MoviesViewHolder>() {
