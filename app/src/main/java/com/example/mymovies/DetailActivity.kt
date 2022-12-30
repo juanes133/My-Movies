@@ -2,6 +2,7 @@ package com.example.mymovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.widget.TextView
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
@@ -18,6 +19,8 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityDetailBinding.inflate(layoutInflater)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val movie = intent.getParcelableExtra<Movie>(EXTRA_MOVIE)
         if (movie != null) {
             title = movie.title
@@ -25,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
                 .with(this)
                 .load("https://image.tmdb.org/t/p/w780/${movie.backdrop_path}")
                 .into(binding.backdrop)
-            binding.summary.text = movie.overview
+            binding.summary.text = movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview
             bindDetalInfo(binding.detailInfo, movie)
         }
         setContentView(binding.root)
@@ -33,20 +36,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun bindDetalInfo(detailInfo: TextView, movie: Movie) {
         detailInfo.text = buildSpannedString {
-            bold { append("Original language: ") }
-            appendLine(movie.original_language)
-
-            bold { append("Original title: ") }
-            appendLine(movie.original_title)
-
-            bold { append("Release date: ")
-            appendLine(movie.release_date)}
-
-            bold { append("Popularity: ")
-            appendLine(movie.popularity.toString())}
-
-            bold { append("Vote average: ") }
-            appendLine(movie.vote_average.toString())
+            appendInfo(R.string.original_language, movie.original_language)
+            appendInfo(R.string.original_title, movie.original_title)
+            appendInfo(R.string.release_date, movie.release_date)
+            appendInfo(R.string.popularity, movie.popularity.toString())
+            appendInfo(R.string.vote_average, movie.vote_average.toString())
         }
+    }
+
+    private fun SpannableStringBuilder.appendInfo(stringRes: Int, value: String){
+        bold {
+            append(getString(stringRes))
+            append(": ")
+        }
+        appendLine(value)
     }
 }
