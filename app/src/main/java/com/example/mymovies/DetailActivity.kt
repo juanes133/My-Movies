@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
                 .with(this)
                 .load("https://image.tmdb.org/t/p/w780/${movie.backdrop_path}")
                 .into(binding.backdrop)
-            binding.summary.text = movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview + movie.overview
+            binding.summary.text = movie.overview
             bindDetalInfo(binding.detailInfo, movie)
         }
         setContentView(binding.root)
